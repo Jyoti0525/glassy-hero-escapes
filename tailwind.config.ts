@@ -127,5 +127,18 @@ export default {
 			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [
+		require("tailwindcss-animate"),
+		function({ addUtilities }: { addUtilities: any }) {
+			const newUtilities = {
+				'.line-clamp-1': {
+					overflow: 'hidden',
+					display: '-webkit-box',
+					'-webkit-box-orient': 'vertical',
+					'-webkit-line-clamp': '1',
+				},
+			}
+			addUtilities(newUtilities)
+		}
+	],
 } satisfies Config;
