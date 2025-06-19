@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Suitcase, Home } from 'lucide-react';
+import { Award, User } from 'lucide-react';
 
 const SplitCTA = () => {
   return (
@@ -24,7 +24,7 @@ const SplitCTA = () => {
                 <div className="relative">
                   <div className="absolute inset-0 bg-white/20 rounded-full blur-xl animate-pulse" />
                   <div className="relative bg-white/10 backdrop-blur-sm p-4 rounded-full border border-white/20 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                    <Suitcase className="w-8 h-8 text-white" />
+                    <Award className="w-8 h-8 text-white" />
                   </div>
                 </div>
               </div>
@@ -71,7 +71,7 @@ const SplitCTA = () => {
                 <div className="relative">
                   <div className="absolute inset-0 bg-white/20 rounded-full blur-xl animate-pulse" />
                   <div className="relative bg-white/10 backdrop-blur-sm p-4 rounded-full border border-white/20 group-hover:scale-110 group-hover:-rotate-6 transition-all duration-500">
-                    <Home className="w-8 h-8 text-white" />
+                    <User className="w-8 h-8 text-white" />
                   </div>
                 </div>
               </div>

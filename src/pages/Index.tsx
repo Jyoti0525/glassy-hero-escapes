@@ -3,6 +3,7 @@ import React from 'react';
 import HeroSection from '@/components/HeroSection';
 import FeaturedStays from '@/components/FeaturedStays';
 import ListingPreview from '@/components/ListingPreview';
+import TestimonialTrust from '@/components/TestimonialTrust';
 import SplitCTA from '@/components/SplitCTA';
 
 const Index = () => {
@@ -11,6 +12,7 @@ const Index = () => {
       <HeroSection />
       <FeaturedStays />
       <ListingPreview />
+      <TestimonialTrust />
       <SplitCTA />
     </div>
   );
