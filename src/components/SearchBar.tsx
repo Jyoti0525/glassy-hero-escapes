@@ -1,13 +1,25 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const SearchBar = () => {
   const [location, setLocation] = useState('');
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
   const [guests, setGuests] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    const searchParams = new URLSearchParams();
+    
+    if (location) searchParams.set('location', location);
+    if (checkIn) searchParams.set('checkIn', checkIn);
+    if (checkOut) searchParams.set('checkOut', checkOut);
+    if (guests) searchParams.set('guests', guests);
+
+    navigate(`/explore?${searchParams.toString()}`);
+  };
 
   return (
     <div className="w-full max-w-6xl mx-auto animate-fadeInUp">
@@ -35,7 +47,7 @@ const SearchBar = () => {
                   <option value="2" className="text-gray-900">2 Guests</option>
                   <option value="3" className="text-gray-900">3 Guests</option>
                   <option value="4" className="text-gray-900">4 Guests</option>
-                  <option value="5+" className="text-gray-900">5+ Guests</option>
+                  <option value="5" className="text-gray-900">5+ Guests</option>
                 </select>
               ) : (
                 <input
@@ -52,7 +64,10 @@ const SearchBar = () => {
 
         {/* Enhanced Search Button */}
         <div className="mt-8 flex justify-center">
-          <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-16 py-6 rounded-2xl text-xl font-bold transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-blue-500/30 flex items-center gap-4 border border-white/20 hover:border-white/30 backdrop-blur-sm">
+          <Button 
+            onClick={handleSearch}
+            className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-16 py-6 rounded-2xl text-xl font-bold transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-blue-500/30 flex items-center gap-4 border border-white/20 hover:border-white/30 backdrop-blur-sm"
+          >
             <Search className="w-6 h-6" />
             Search Properties
             <div className="absolute inset-0 bg-white/10 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
