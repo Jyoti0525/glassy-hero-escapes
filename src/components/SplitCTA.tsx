@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Award, User } from 'lucide-react';
 
@@ -44,13 +45,15 @@ const SplitCTA = () => {
 
               {/* CTA Button */}
               <div className="flex justify-center lg:justify-start">
-                <Button 
-                  size="lg"
-                  className="relative bg-white text-purple-600 hover:bg-white/90 px-8 py-4 text-lg font-semibold rounded-2xl shadow-2xl hover:shadow-white/30 hover:scale-105 transition-all duration-300 border-2 border-white/20 hover:border-white/40"
-                >
-                  <span className="relative z-10">Start Exploring</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-white to-gray-50 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
-                </Button>
+                <Link to="/explore">
+                  <Button 
+                    size="lg"
+                    className="relative bg-white text-purple-600 hover:bg-white/90 px-8 py-4 text-lg font-semibold rounded-2xl shadow-2xl hover:shadow-white/30 hover:scale-105 transition-all duration-300 border-2 border-white/20 hover:border-white/40"
+                  >
+                    <span className="relative z-10">Start Exploring</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-white to-gray-50 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -91,13 +94,15 @@ const SplitCTA = () => {
 
               {/* CTA Button */}
               <div className="flex justify-center lg:justify-start">
-                <Button 
-                  size="lg"
-                  className="relative bg-white text-emerald-600 hover:bg-white/90 px-8 py-4 text-lg font-semibold rounded-2xl shadow-2xl hover:shadow-white/30 hover:scale-105 transition-all duration-300 border-2 border-white/20 hover:border-white/40"
-                >
-                  <span className="relative z-10">Get Started</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-white to-gray-50 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
-                </Button>
+                <Link to="/host">
+                  <Button 
+                    size="lg"
+                    className="relative bg-white text-emerald-600 hover:bg-white/90 px-8 py-4 text-lg font-semibold rounded-2xl shadow-2xl hover:shadow-white/30 hover:scale-105 transition-all duration-300 border-2 border-white/20 hover:border-white/40"
+                  >
+                    <span className="relative z-10">Get Started</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-white to-gray-50 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
