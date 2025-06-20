@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
@@ -6,7 +5,6 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Bookmark, Share, MapPin, Calendar, Users, SlidersHorizontal } from 'lucide-react';
-import Navigation from '@/components/Navigation';
 
 const Explore = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -97,8 +95,6 @@ const Explore = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50/30 via-white to-purple-50/20">
-      <Navigation />
-      
       <div className="pt-32 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-7xl">
           {/* Search Summary */}
