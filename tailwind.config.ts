@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -70,6 +71,7 @@ export default {
 			},
 			boxShadow: {
 				'3xl': '0 35px 60px -12px rgba(0, 0, 0, 0.25)',
+				'4xl': '0 45px 80px -15px rgba(0, 0, 0, 0.3)',
 			},
 			keyframes: {
 				'accordion-down': {
@@ -98,20 +100,28 @@ export default {
 				},
 				'float': {
 					'0%, 100%': {
-						transform: 'translateY(0px)'
+						transform: 'translateY(0px) rotateY(0deg)'
 					},
 					'50%': {
-						transform: 'translateY(-10px)'
+						transform: 'translateY(-12px) rotateY(5deg)'
 					}
 				},
 				'fadeInUp': {
 					'0%': {
 						opacity: '0',
-						transform: 'translateY(30px)'
+						transform: 'translateY(40px) scale(0.95)'
 					},
 					'100%': {
 						opacity: '1',
-						transform: 'translateY(0)'
+						transform: 'translateY(0) scale(1)'
+					}
+				},
+				'glassShine': {
+					'0%': {
+						transform: 'translateX(-100%)'
+					},
+					'100%': {
+						transform: 'translateX(100%)'
 					}
 				}
 			},
@@ -119,11 +129,15 @@ export default {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'glow': 'glow 2s ease-in-out infinite',
-				'float': 'float 3s ease-in-out infinite',
-				'fadeInUp': 'fadeInUp 0.6s ease-out'
+				'float': 'float 4s ease-in-out infinite',
+				'fadeInUp': 'fadeInUp 0.8s ease-out',
+				'glassShine': 'glassShine 2s ease-in-out infinite'
 			},
 			backdropBlur: {
 				xs: '2px'
+			},
+			fontWeight: {
+				'black': '900'
 			}
 		}
 	},
@@ -137,6 +151,25 @@ export default {
 					'-webkit-box-orient': 'vertical',
 					'-webkit-line-clamp': '1',
 				},
+				'.glass-effect': {
+					background: 'rgba(255, 255, 255, 0.1)',
+					backdropFilter: 'blur(10px)',
+					border: '1px solid rgba(255, 255, 255, 0.2)',
+				},
+				'.glass-shine': {
+					position: 'relative',
+					overflow: 'hidden',
+					'&::before': {
+						content: '""',
+						position: 'absolute',
+						top: '0',
+						left: '-100%',
+						width: '100%',
+						height: '100%',
+						background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
+						animation: 'glassShine 2s ease-in-out infinite',
+					}
+				}
 			}
 			addUtilities(newUtilities)
 		}
