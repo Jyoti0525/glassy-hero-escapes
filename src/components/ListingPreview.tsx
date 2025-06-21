@@ -1,11 +1,12 @@
-
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Bookmark, Share } from 'lucide-react';
 
 const ListingPreview = () => {
   const [activeFilter, setActiveFilter] = useState('beach-homes');
+  const navigate = useNavigate();
 
   const filterTabs = [
     { id: 'beach-homes', label: 'Beach Homes' },
@@ -187,6 +188,22 @@ const ListingPreview = () => {
     ]
   };
 
+  const handleCardClick = (listingId: number) => {
+    navigate(`/property/${listingId}`);
+  };
+
+  const handleBookmark = (e: React.MouseEvent, listingId: number) => {
+    e.stopPropagation();
+    console.log('Bookmarked listing:', listingId);
+    // Add bookmark functionality here
+  };
+
+  const handleShare = (e: React.MouseEvent, listingId: number) => {
+    e.stopPropagation();
+    console.log('Shared listing:', listingId);
+    // Add share functionality here
+  };
+
   const renderStars = (rating: number) => {
     return (
       <div className="flex items-center gap-1">
@@ -242,6 +259,7 @@ const ListingPreview = () => {
                 {listings[tab.id as keyof typeof listings].map((listing, index) => (
                   <Card
                     key={listing.id}
+                    onClick={() => handleCardClick(listing.id)}
                     className="group relative overflow-hidden bg-white border-0 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 cursor-pointer rounded-3xl animate-fadeInUp"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
@@ -256,10 +274,16 @@ const ListingPreview = () => {
                       
                       {/* Action Icons */}
                       <div className="absolute top-3 right-3 flex gap-2">
-                        <button className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300">
+                        <button 
+                          onClick={(e) => handleBookmark(e, listing.id)}
+                          className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300"
+                        >
                           <Bookmark className="w-4 h-4 text-gray-700" />
                         </button>
-                        <button className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300">
+                        <button 
+                          onClick={(e) => handleShare(e, listing.id)}
+                          className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300"
+                        >
                           <Share className="w-4 h-4 text-gray-700" />
                         </button>
                       </div>

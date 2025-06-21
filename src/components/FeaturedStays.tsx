@@ -1,9 +1,10 @@
-
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 
 const FeaturedStays = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -43,6 +44,10 @@ const FeaturedStays = () => {
       location: 'Malibu, California'
     }
   ];
+
+  const handleCardClick = (stayId: number) => {
+    navigate(`/property/${stayId}`);
+  };
 
   const FloatingIcon = ({ icon, delay, range }: { icon: string; delay: number; range: number }) => (
     <div
@@ -117,6 +122,7 @@ const FeaturedStays = () => {
           {featuredStays.map((stay, index) => (
             <Card 
               key={stay.id}
+              onClick={() => handleCardClick(stay.id)}
               className="group relative overflow-hidden bg-white/80 backdrop-blur-lg border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 cursor-pointer animate-fadeInUp rounded-3xl"
               style={{ animationDelay: `${index * 0.2}s` }}
             >
@@ -156,6 +162,7 @@ const FeaturedStays = () => {
             {featuredStays.map((stay, index) => (
               <Card 
                 key={stay.id}
+                onClick={() => handleCardClick(stay.id)}
                 className="group relative flex-shrink-0 w-80 overflow-hidden bg-white/80 backdrop-blur-lg border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 cursor-pointer rounded-3xl snap-center"
               >
                 <div className="relative overflow-hidden rounded-t-3xl">
