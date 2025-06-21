@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
@@ -93,6 +94,22 @@ const Explore = () => {
     return matchesCategory && matchesLocation && matchesGuests;
   });
 
+  const handleCardClick = (listingId: number) => {
+    navigate(`/property/${listingId}`);
+  };
+
+  const handleBookmark = (e: React.MouseEvent, listingId: number) => {
+    e.stopPropagation();
+    console.log('Bookmarked listing:', listingId);
+    // Add bookmark functionality here
+  };
+
+  const handleShare = (e: React.MouseEvent, listingId: number) => {
+    e.stopPropagation();
+    console.log('Shared listing:', listingId);
+    // Add share functionality here
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50/30 via-white to-purple-50/20">
       <div className="pt-32 px-4 sm:px-6 lg:px-8">
@@ -177,6 +194,7 @@ const Explore = () => {
             {filteredListings.map((listing, index) => (
               <Card
                 key={listing.id}
+                onClick={() => handleCardClick(listing.id)}
                 className="group relative overflow-hidden bg-white border-0 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 cursor-pointer rounded-3xl"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
@@ -191,10 +209,16 @@ const Explore = () => {
                   
                   {/* Action Icons */}
                   <div className="absolute top-3 right-3 flex gap-2">
-                    <button className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300">
+                    <button 
+                      onClick={(e) => handleBookmark(e, listing.id)}
+                      className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300"
+                    >
                       <Bookmark className="w-4 h-4 text-gray-700" />
                     </button>
-                    <button className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300">
+                    <button 
+                      onClick={(e) => handleShare(e, listing.id)}
+                      className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300"
+                    >
                       <Share className="w-4 h-4 text-gray-700" />
                     </button>
                   </div>
