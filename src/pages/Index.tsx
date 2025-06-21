@@ -7,6 +7,7 @@ import TestimonialTrust from '@/components/TestimonialTrust';
 import SplitCTA from '@/components/SplitCTA';
 
 const Index = () => {
+  console.log('Index page rendering');
   return (
     <div className="min-h-screen">
       <HeroSection />
