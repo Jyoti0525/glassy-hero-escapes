@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -11,7 +12,7 @@ import {
   CarouselNext, 
   CarouselPrevious 
 } from '@/components/ui/carousel';
-import { Star, Users, Award, Ribbon } from 'lucide-react';
+import { Star, Users, Award, Ribbon, Shield, Clock } from 'lucide-react';
 
 const testimonials = [
   {
@@ -50,7 +51,7 @@ const testimonials = [
 
 const trustFeatures = [
   {
-    icon: Users,
+    icon: Shield,
     title: "Verified Hosts",
     description: "All hosts are background-checked and verified for your safety"
   },
@@ -60,9 +61,9 @@ const trustFeatures = [
     description: "Your payment is protected with 256-bit SSL encryption"
   },
   {
-    icon: Ribbon,
-    title: "Flexible Cancellation",
-    description: "Cancel up to 24 hours before check-in for a full refund"
+    icon: Clock,
+    title: "24/7 Support",
+    description: "Round-the-clock customer support for peace of mind"
   }
 ];
 
@@ -77,20 +78,23 @@ const TestimonialTrust = () => {
   }, []);
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 relative overflow-hidden">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900 relative overflow-hidden">
+      {/* Dark Background with Adventure Theme */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"></div>
+      
       {/* Floating Background Elements */}
-      <div className="absolute top-10 left-10 w-20 h-20 bg-gradient-to-br from-pink-300 to-purple-300 rounded-full opacity-20 animate-float" />
-      <div className="absolute top-32 right-20 w-16 h-16 bg-gradient-to-br from-blue-300 to-cyan-300 rounded-full opacity-20 animate-float" style={{ animationDelay: '1s' }} />
-      <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-gradient-to-br from-yellow-300 to-orange-300 rounded-full opacity-20 animate-float" style={{ animationDelay: '2s' }} />
+      <div className="absolute top-10 left-10 w-20 h-20 bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-full opacity-50 animate-float" />
+      <div className="absolute top-32 right-20 w-16 h-16 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-full opacity-50 animate-float" style={{ animationDelay: '1s' }} />
+      <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-gradient-to-br from-gray-600/20 to-gray-500/20 rounded-full opacity-50 animate-float" style={{ animationDelay: '2s' }} />
 
       <div className="container mx-auto max-w-7xl relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
             What Our Guests Say
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Join thousands of happy travelers who have found their perfect stay
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            Join thousands of happy travelers who have found their perfect adventure
           </p>
         </div>
 
@@ -100,17 +104,17 @@ const TestimonialTrust = () => {
             <CarouselContent>
               {testimonials.map((testimonial) => (
                 <CarouselItem key={testimonial.id} className="md:basis-1/2 lg:basis-1/2">
-                  <Card className="group h-full bg-white/70 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-500 hover:rotate-1">
+                  <Card className="group h-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 shadow-xl hover:shadow-2xl hover:shadow-orange-500/20 transform hover:scale-105 transition-all duration-500 hover:border-orange-500/40">
                     <CardContent className="p-8">
                       {/* Quote Icon */}
                       <div className="mb-6">
-                        <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white text-2xl font-bold transform group-hover:rotate-12 transition-transform duration-300">
+                        <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center text-white text-2xl font-bold transform group-hover:rotate-12 transition-transform duration-300">
                           "
                         </div>
                       </div>
 
                       {/* Review Text */}
-                      <p className="text-gray-700 text-lg mb-6 leading-relaxed italic">
+                      <p className="text-gray-300 text-lg mb-6 leading-relaxed italic">
                         "{testimonial.text}"
                       </p>
 
@@ -121,8 +125,8 @@ const TestimonialTrust = () => {
                             key={index}
                             className={`w-5 h-5 ${
                               index < testimonial.rating
-                                ? 'text-yellow-400 fill-current'
-                                : 'text-gray-300'
+                                ? 'text-orange-400 fill-current'
+                                : 'text-gray-600'
                             }`}
                           />
                         ))}
@@ -130,15 +134,15 @@ const TestimonialTrust = () => {
 
                       {/* User Info */}
                       <div className="flex items-center space-x-4">
-                        <Avatar className="w-12 h-12 ring-2 ring-purple-200 ring-offset-2">
+                        <Avatar className="w-12 h-12 ring-2 ring-orange-500/30 ring-offset-2 ring-offset-gray-800">
                           <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
-                          <AvatarFallback className="bg-gradient-to-br from-purple-400 to-pink-400 text-white">
+                          <AvatarFallback className="bg-gradient-to-br from-orange-500 to-red-600 text-white">
                             {testimonial.name.split(' ').map(n => n[0]).join('')}
                           </AvatarFallback>
                         </Avatar>
                         <div>
-                          <p className="font-semibold text-gray-900">{testimonial.name}</p>
-                          <p className="text-sm text-gray-600">{testimonial.location}</p>
+                          <p className="font-semibold text-white">{testimonial.name}</p>
+                          <p className="text-sm text-gray-400">{testimonial.location}</p>
                         </div>
                       </div>
                     </CardContent>
@@ -146,8 +150,8 @@ const TestimonialTrust = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="hidden md:flex -left-12" />
-            <CarouselNext className="hidden md:flex -right-12" />
+            <CarouselPrevious className="hidden md:flex -left-12 bg-gray-800 border-gray-700 text-white hover:bg-gray-700" />
+            <CarouselNext className="hidden md:flex -right-12 bg-gray-800 border-gray-700 text-white hover:bg-gray-700" />
           </Carousel>
         </div>
 
@@ -156,23 +160,23 @@ const TestimonialTrust = () => {
           {trustFeatures.map((feature, index) => (
             <Card 
               key={index} 
-              className="group bg-white/60 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-2 transition-all duration-500"
+              className="group bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 shadow-lg hover:shadow-xl hover:shadow-orange-500/20 transform hover:scale-105 hover:-translate-y-2 transition-all duration-500 hover:border-orange-500/40"
             >
               <CardContent className="p-8 text-center">
                 <div className="mb-6 flex justify-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-400 rounded-2xl flex items-center justify-center group-hover:rotate-6 transition-transform duration-300">
+                  <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center group-hover:rotate-6 transition-transform duration-300">
                     <feature.icon className="w-8 h-8 text-white" />
                   </div>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
+                <p className="text-gray-400 leading-relaxed">{feature.description}</p>
               </CardContent>
             </Card>
           ))}
         </div>
 
         {/* Loyalty Program Banner */}
-        <Card className="bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 border-0 shadow-2xl relative overflow-hidden">
+        <Card className="bg-gradient-to-r from-orange-600 via-red-600 to-orange-600 border-0 shadow-2xl relative overflow-hidden">
           {/* Floating Badge Icons */}
           <div className="absolute top-4 right-4 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center animate-float">
             <Star className="w-4 h-4 text-white" />
@@ -189,11 +193,11 @@ const TestimonialTrust = () => {
               </Badge>
             </div>
             
-            <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Join Our Loyalty Program
+            <h3 className="text-3xl md:text-4xl font-black text-white mb-4">
+              Join Our Adventure Club
             </h3>
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Earn points with every booking, unlock exclusive discounts, and get early access to new properties
+              Earn points with every booking, unlock exclusive discounts, and get early access to new adventures
             </p>
             
             <Link to="/rewards">
@@ -201,7 +205,7 @@ const TestimonialTrust = () => {
                 size="lg"
                 className="bg-white text-orange-600 hover:bg-white/90 px-8 py-4 text-lg font-semibold rounded-2xl shadow-2xl hover:shadow-white/30 hover:scale-105 transition-all duration-300"
               >
-                Join Rewards Program
+                Join Adventure Club
               </Button>
             </Link>
           </CardContent>
