@@ -1,5 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -196,12 +196,14 @@ const TestimonialTrust = () => {
               Earn points with every booking, unlock exclusive discounts, and get early access to new properties
             </p>
             
-            <Button 
-              size="lg"
-              className="bg-white text-orange-600 hover:bg-white/90 px-8 py-4 text-lg font-semibold rounded-2xl shadow-2xl hover:shadow-white/30 hover:scale-105 transition-all duration-300"
-            >
-              Join Rewards Program
-            </Button>
+            <Link to="/rewards">
+              <Button 
+                size="lg"
+                className="bg-white text-orange-600 hover:bg-white/90 px-8 py-4 text-lg font-semibold rounded-2xl shadow-2xl hover:shadow-white/30 hover:scale-105 transition-all duration-300"
+              >
+                Join Rewards Program
+              </Button>
+            </Link>
           </CardContent>
         </Card>
       </div>

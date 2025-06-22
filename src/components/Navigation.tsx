@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Home } from 'lucide-react';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,35 +24,57 @@ const Navigation = () => {
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-      isScrolled ? 'py-3' : 'py-6'
+      isScrolled ? 'py-2' : 'py-6'
     }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`flex items-center justify-between p-6 rounded-3xl transition-all duration-500 ${
+        <div className={`flex items-center justify-between p-4 rounded-3xl transition-all duration-500 ${
           isScrolled 
-            ? 'bg-white/15 backdrop-blur-2xl shadow-2xl border border-white/20' 
+            ? 'bg-white/95 backdrop-blur-2xl shadow-2xl border border-gray-200' 
             : 'bg-white/10 backdrop-blur-xl shadow-2xl border border-white/15'
         }`}>
           <Link to="/" className="flex items-center group cursor-pointer">
-            <div className="text-3xl font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent drop-shadow-lg group-hover:scale-110 transition-transform duration-300">
+            <div className={`text-2xl md:text-3xl font-black transition-all duration-300 group-hover:scale-110 ${
+              isScrolled 
+                ? 'bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent' 
+                : 'bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent drop-shadow-lg'
+            }`}>
               StayScape
             </div>
           </Link>
 
-          <div className="hidden md:flex items-center space-x-10">
+          <div className="hidden md:flex items-center space-x-6">
+            <Link to="/" className="flex items-center space-x-2 group">
+              <Home className={`w-5 h-5 transition-all duration-300 group-hover:scale-110 ${
+                isScrolled ? 'text-gray-700 group-hover:text-blue-600' : 'text-white/90 group-hover:text-white'
+              }`} />
+              <span className={`font-semibold text-lg transition-all duration-300 group-hover:scale-110 ${
+                isScrolled ? 'text-gray-700 group-hover:text-blue-600' : 'text-white/90 group-hover:text-white'
+              }`}>
+                Home
+              </span>
+            </Link>
             <Link 
               to="/explore" 
-              className="text-white/90 hover:text-white transition-colors duration-300 font-semibold text-lg hover:scale-110 transform transition-transform"
+              className={`font-semibold text-lg hover:scale-110 transform transition-all duration-300 ${
+                isScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white/90 hover:text-white'
+              }`}
             >
               Explore
             </Link>
             <Link 
               to="/host" 
-              className="text-white/90 hover:text-white transition-colors duration-300 font-semibold text-lg hover:scale-110 transform transition-transform"
+              className={`font-semibold text-lg hover:scale-110 transform transition-all duration-300 ${
+                isScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white/90 hover:text-white'
+              }`}
             >
               For Hosts
             </Link>
             <Link to="/signin">
-              <Button variant="ghost" className="text-white/90 hover:text-white hover:bg-white/10 backdrop-blur-sm rounded-2xl px-6 py-3 font-semibold border border-white/20 hover:border-white/30 transition-all duration-300">
+              <Button variant="ghost" className={`rounded-2xl px-6 py-3 font-semibold transition-all duration-300 ${
+                isScrolled 
+                  ? 'text-gray-700 hover:text-blue-600 hover:bg-blue-50 backdrop-blur-sm border border-gray-200 hover:border-blue-300' 
+                  : 'text-white/90 hover:text-white hover:bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/30'
+              }`}>
                 Sign In
               </Button>
             </Link>
@@ -64,17 +87,29 @@ const Navigation = () => {
 
           <button 
             onClick={toggleMobileMenu}
-            className="md:hidden p-3 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 hover:border-white/30 transition-all duration-300 transform hover:scale-110"
+            className={`md:hidden p-3 rounded-2xl backdrop-blur-sm transition-all duration-300 transform hover:scale-110 ${
+              isScrolled 
+                ? 'bg-gray-100 border border-gray-200 hover:bg-gray-200 hover:border-gray-300' 
+                : 'bg-white/10 border border-white/20 hover:bg-white/20 hover:border-white/30'
+            }`}
           >
-            <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className={`w-6 h-6 ${isScrolled ? 'text-gray-700' : 'text-white'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
 
           {/* Mobile Menu */}
           {isMobileMenuOpen && (
-            <div className="absolute top-full left-0 right-0 mt-2 mx-4 p-6 bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/20 md:hidden">
+            <div className="absolute top-full left-0 right-0 mt-2 mx-4 p-6 bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl border border-gray-200 md:hidden">
               <div className="flex flex-col space-y-4">
+                <Link 
+                  to="/" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center space-x-2 text-gray-800 hover:text-blue-600 transition-colors duration-300 font-semibold text-lg py-2"
+                >
+                  <Home className="w-5 h-5" />
+                  <span>Home</span>
+                </Link>
                 <Link 
                   to="/explore" 
                   onClick={() => setIsMobileMenuOpen(false)}
