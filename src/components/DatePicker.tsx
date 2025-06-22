@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -25,8 +25,8 @@ const DatePicker = ({ date, onDateChange, placeholder, className }: DatePickerPr
         <Button
           variant="ghost"
           className={cn(
-            "w-full justify-start text-left font-medium p-5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-sm text-white hover:bg-white/15 hover:border-white/30 transition-all duration-300 outline-none",
-            !date && "text-white/60",
+            "w-full justify-start text-left font-medium p-4 rounded-2xl border border-gray-600/50 bg-gray-800/50 backdrop-blur-sm text-white hover:bg-gray-700/50 hover:border-orange-500/50 transition-all duration-300 outline-none",
+            !date && "text-gray-400",
             className
           )}
         >
@@ -34,13 +34,13 @@ const DatePicker = ({ date, onDateChange, placeholder, className }: DatePickerPr
           {date ? format(date, "PPP") : <span>{placeholder}</span>}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0 bg-white" align="start">
+      <PopoverContent className="w-auto p-0 bg-gray-800 border-gray-700" align="start">
         <Calendar
           mode="single"
           selected={date}
           onSelect={onDateChange}
           initialFocus
-          className="p-3 pointer-events-auto"
+          className="p-3 pointer-events-auto text-white"
           disabled={(date) => date < new Date()}
         />
       </PopoverContent>
