@@ -30,13 +30,12 @@ const Rewards = () => {
 
   const handleJoinRewards = () => {
     console.log('Joining rewards program');
-    // Add rewards signup logic here
     alert('Welcome to StayScape Adventure Rewards! You\'ve been enrolled.');
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black pt-32 px-4 sm:px-6 lg:px-8">
-      <div className="container mx-auto max-w-6xl">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto max-w-6xl pt-20">
         {/* Header */}
         <div className="text-center mb-16 animate-fadeInUp">
           <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-orange-400 via-red-500 to-orange-400 bg-clip-text text-transparent mb-6">
@@ -79,7 +78,7 @@ const Rewards = () => {
         {/* Membership Tiers */}
         <div className="text-center mb-12 animate-fadeInUp">
           <h2 className="text-3xl font-bold text-white mb-8">Adventure Tiers</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-20">
             <Card className="bg-gradient-to-br from-gray-800 to-gray-900 backdrop-blur-sm border border-gray-700 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300">
               <CardHeader className="text-center">
                 <CardTitle className="text-2xl font-bold text-gray-300">Explorer</CardTitle>

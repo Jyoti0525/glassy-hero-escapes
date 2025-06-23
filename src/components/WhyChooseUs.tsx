@@ -37,7 +37,7 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <section className="py-20 bg-gray-900">
+    <section className="py-20 bg-gray-900 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
@@ -53,6 +53,10 @@ const WhyChooseUs = () => {
             <div 
               key={index}
               className="group p-8 bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 hover:border-orange-500/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20"
+              style={{
+                animation: `float 6s ease-in-out infinite`,
+                animationDelay: `${index * 0.5}s`
+              }}
             >
               <div className="mb-6">
                 <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
