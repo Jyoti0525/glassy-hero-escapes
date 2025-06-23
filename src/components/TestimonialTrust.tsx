@@ -1,17 +1,10 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Carousel, 
-  CarouselContent, 
-  CarouselItem, 
-  CarouselNext, 
-  CarouselPrevious 
-} from '@/components/ui/carousel';
 import { Star, Users, Award, Ribbon, Shield, Clock } from 'lucide-react';
 
 const testimonials = [
@@ -46,6 +39,22 @@ const testimonials = [
     rating: 4,
     text: "Cozy apartment in the heart of the city. Walking distance to everything and very well maintained.",
     location: "City Loft, New York"
+  },
+  {
+    id: 5,
+    name: "Lisa Parker",
+    avatar: "/placeholder.svg",
+    rating: 5,
+    text: "Exceptional service and beautiful property. The views were breathtaking and everything was spotless.",
+    location: "Lake House, Michigan"
+  },
+  {
+    id: 6,
+    name: "James Wilson",
+    avatar: "/placeholder.svg",
+    rating: 5,
+    text: "Perfect for our romantic getaway. The attention to detail was outstanding and the location was magical.",
+    location: "Wine Country, Napa"
   }
 ];
 
@@ -68,13 +77,49 @@ const trustFeatures = [
 ];
 
 const TestimonialTrust = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  
+  // Duplicate testimonials for seamless loop
+  const duplicatedTestimonials = [...testimonials, ...testimonials];
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(timer);
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
+
+    let animationId: number;
+    let scrollPosition = 0;
+    const scrollSpeed = 0.3; // pixels per frame
+    const cardWidth = 400; // approximate width of each testimonial card including gap
+    const totalWidth = testimonials.length * cardWidth;
+
+    const animate = () => {
+      scrollPosition += scrollSpeed;
+      
+      // Reset position when we've scrolled through all original items
+      if (scrollPosition >= totalWidth) {
+        scrollPosition = 0;
+      }
+      
+      scrollContainer.scrollLeft = scrollPosition;
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animationId = requestAnimationFrame(animate);
+
+    // Pause animation on hover
+    const handleMouseEnter = () => cancelAnimationFrame(animationId);
+    const handleMouseLeave = () => {
+      animationId = requestAnimationFrame(animate);
+    };
+
+    scrollContainer.addEventListener('mouseenter', handleMouseEnter);
+    scrollContainer.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      cancelAnimationFrame(animationId);
+      scrollContainer.removeEventListener('mouseenter', handleMouseEnter);
+      scrollContainer.removeEventListener('mouseleave', handleMouseLeave);
+    };
   }, []);
 
   return (
@@ -98,61 +143,62 @@ const TestimonialTrust = () => {
           </p>
         </div>
 
-        {/* Testimonials Carousel */}
+        {/* Testimonials Carousel - Auto-scrolling */}
         <div className="mb-20">
-          <Carousel className="w-full max-w-4xl mx-auto">
-            <CarouselContent>
-              {testimonials.map((testimonial) => (
-                <CarouselItem key={testimonial.id} className="md:basis-1/2 lg:basis-1/2">
-                  <Card className="group h-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 shadow-xl hover:shadow-2xl hover:shadow-orange-500/20 transform hover:scale-105 transition-all duration-500 hover:border-orange-500/40">
-                    <CardContent className="p-8">
-                      {/* Quote Icon */}
-                      <div className="mb-6">
-                        <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center text-white text-2xl font-bold transform group-hover:rotate-12 transition-transform duration-300">
-                          "
-                        </div>
-                      </div>
+          <div 
+            ref={scrollRef}
+            className="flex gap-6 overflow-x-hidden scrollbar-hide"
+            style={{ scrollBehavior: 'auto' }}
+          >
+            {duplicatedTestimonials.map((testimonial, index) => (
+              <Card 
+                key={`${testimonial.id}-${index}`} 
+                className="group h-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 shadow-xl hover:shadow-2xl hover:shadow-orange-500/20 transform hover:scale-105 transition-all duration-500 hover:border-orange-500/40 flex-shrink-0 w-96"
+              >
+                <CardContent className="p-8">
+                  {/* Quote Icon */}
+                  <div className="mb-6">
+                    <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center text-white text-2xl font-bold transform group-hover:rotate-12 transition-transform duration-300">
+                      "
+                    </div>
+                  </div>
 
-                      {/* Review Text */}
-                      <p className="text-gray-300 text-lg mb-6 leading-relaxed italic">
-                        "{testimonial.text}"
-                      </p>
+                  {/* Review Text */}
+                  <p className="text-gray-300 text-lg mb-6 leading-relaxed italic">
+                    "{testimonial.text}"
+                  </p>
 
-                      {/* Rating */}
-                      <div className="flex items-center mb-4 space-x-1">
-                        {[...Array(5)].map((_, index) => (
-                          <Star
-                            key={index}
-                            className={`w-5 h-5 ${
-                              index < testimonial.rating
-                                ? 'text-orange-400 fill-current'
-                                : 'text-gray-600'
-                            }`}
-                          />
-                        ))}
-                      </div>
+                  {/* Rating */}
+                  <div className="flex items-center mb-4 space-x-1">
+                    {[...Array(5)].map((_, starIndex) => (
+                      <Star
+                        key={starIndex}
+                        className={`w-5 h-5 ${
+                          starIndex < testimonial.rating
+                            ? 'text-orange-400 fill-current'
+                            : 'text-gray-600'
+                        }`}
+                      />
+                    ))}
+                  </div>
 
-                      {/* User Info */}
-                      <div className="flex items-center space-x-4">
-                        <Avatar className="w-12 h-12 ring-2 ring-orange-500/30 ring-offset-2 ring-offset-gray-800">
-                          <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
-                          <AvatarFallback className="bg-gradient-to-br from-orange-500 to-red-600 text-white">
-                            {testimonial.name.split(' ').map(n => n[0]).join('')}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <p className="font-semibold text-white">{testimonial.name}</p>
-                          <p className="text-sm text-gray-400">{testimonial.location}</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden md:flex -left-12 bg-gray-800 border-gray-700 text-white hover:bg-gray-700" />
-            <CarouselNext className="hidden md:flex -right-12 bg-gray-800 border-gray-700 text-white hover:bg-gray-700" />
-          </Carousel>
+                  {/* User Info */}
+                  <div className="flex items-center space-x-4">
+                    <Avatar className="w-12 h-12 ring-2 ring-orange-500/30 ring-offset-2 ring-offset-gray-800">
+                      <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
+                      <AvatarFallback className="bg-gradient-to-br from-orange-500 to-red-600 text-white">
+                        {testimonial.name.split(' ').map(n => n[0]).join('')}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <p className="font-semibold text-white">{testimonial.name}</p>
+                      <p className="text-sm text-gray-400">{testimonial.location}</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
 
         {/* Trust Features */}

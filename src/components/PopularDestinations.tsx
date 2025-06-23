@@ -1,14 +1,9 @@
 
-import React from 'react';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
+import React, { useEffect, useRef } from 'react';
 
 const PopularDestinations = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   const destinations = [
     {
       id: 1,
@@ -54,6 +49,49 @@ const PopularDestinations = () => {
     }
   ];
 
+  // Duplicate destinations for seamless loop
+  const duplicatedDestinations = [...destinations, ...destinations];
+
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
+
+    let animationId: number;
+    let scrollPosition = 0;
+    const scrollSpeed = 0.5; // pixels per frame
+    const cardWidth = 320; // approximate width of each card including gap
+    const totalWidth = destinations.length * cardWidth;
+
+    const animate = () => {
+      scrollPosition += scrollSpeed;
+      
+      // Reset position when we've scrolled through all original items
+      if (scrollPosition >= totalWidth) {
+        scrollPosition = 0;
+      }
+      
+      scrollContainer.scrollLeft = scrollPosition;
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animationId = requestAnimationFrame(animate);
+
+    // Pause animation on hover
+    const handleMouseEnter = () => cancelAnimationFrame(animationId);
+    const handleMouseLeave = () => {
+      animationId = requestAnimationFrame(animate);
+    };
+
+    scrollContainer.addEventListener('mouseenter', handleMouseEnter);
+    scrollContainer.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      cancelAnimationFrame(animationId);
+      scrollContainer.removeEventListener('mouseenter', handleMouseEnter);
+      scrollContainer.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
   return (
     <section className="py-20 bg-gray-800">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -66,45 +104,40 @@ const PopularDestinations = () => {
           </p>
         </div>
 
-        <Carousel 
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-          className="w-full"
+        <div 
+          ref={scrollRef}
+          className="flex gap-6 overflow-x-hidden scrollbar-hide"
+          style={{ scrollBehavior: 'auto' }}
         >
-          <CarouselContent className="-ml-4">
-            {destinations.map((destination) => (
-              <CarouselItem key={destination.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                <div className="group cursor-pointer">
-                  <div className="relative overflow-hidden rounded-2xl bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 hover:border-orange-500/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20">
-                    <div className="relative h-64 overflow-hidden">
-                      <img 
-                        src={destination.image} 
-                        alt={destination.name}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent"></div>
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-orange-400 transition-colors duration-300">
-                        {destination.name}
-                      </h3>
-                      <p className="text-orange-400 font-semibold mb-3">
-                        {destination.properties}
-                      </p>
-                      <p className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
-                        {destination.description}
-                      </p>
-                    </div>
-                  </div>
+          {duplicatedDestinations.map((destination, index) => (
+            <div 
+              key={`${destination.id}-${index}`} 
+              className="flex-shrink-0 w-80 group cursor-pointer"
+            >
+              <div className="relative overflow-hidden rounded-2xl bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 hover:border-orange-500/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20">
+                <div className="relative h-64 overflow-hidden">
+                  <img 
+                    src={destination.image} 
+                    alt={destination.name}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent"></div>
                 </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="bg-gray-800/80 border-gray-600 hover:bg-orange-500 hover:border-orange-400 text-white" />
-          <CarouselNext className="bg-gray-800/80 border-gray-600 hover:bg-orange-500 hover:border-orange-400 text-white" />
-        </Carousel>
+                <div className="p-6">
+                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-orange-400 transition-colors duration-300">
+                    {destination.name}
+                  </h3>
+                  <p className="text-orange-400 font-semibold mb-3">
+                    {destination.properties}
+                  </p>
+                  <p className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
+                    {destination.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

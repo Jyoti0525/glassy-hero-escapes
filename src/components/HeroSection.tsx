@@ -5,10 +5,10 @@ import SearchBar from './SearchBar';
 
 const HeroSection = () => {
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      {/* Enhanced Background with Adventure/Nature Theme */}
+    <div className="relative min-h-screen w-full overflow-hidden">
+      {/* Enhanced Background with Adventure/Nature Theme - Full Coverage */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2000&auto=format&fit=crop')`,
         }}
@@ -20,12 +20,14 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 via-transparent to-gray-900/20"></div>
       </div>
 
-      {/* Navigation */}
-      <Navigation />
+      {/* Navigation - Full width */}
+      <div className="relative z-20 w-full">
+        <Navigation />
+      </div>
 
-      {/* Enhanced Hero Content with Adventure Theme */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8 pt-32">
-        <div className="text-center mb-16 animate-fadeInUp max-w-6xl">
+      {/* Enhanced Hero Content with Adventure Theme - Full width container */}
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen w-full px-4 sm:px-6 lg:px-8 pt-20">
+        <div className="text-center mb-16 animate-fadeInUp max-w-6xl w-full">
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white mb-8 leading-[0.9] tracking-tight">
             <span className="block drop-shadow-2xl font-black">Find your perfect</span>
             <span className="block drop-shadow-2xl font-black">vacation</span>
@@ -38,8 +40,10 @@ const HeroSection = () => {
           </p>
         </div>
 
-        {/* Enhanced Search Bar */}
-        <SearchBar />
+        {/* Enhanced Search Bar - Full width */}
+        <div className="w-full max-w-6xl">
+          <SearchBar />
+        </div>
 
         {/* Enhanced Stats with Adventure Theme */}
         <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-20 text-center animate-fadeInUp w-full max-w-4xl">
