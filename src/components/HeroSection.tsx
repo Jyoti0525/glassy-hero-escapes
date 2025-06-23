@@ -20,13 +20,13 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 via-transparent to-gray-900/20"></div>
       </div>
 
-      {/* Navigation - Full width */}
-      <div className="relative z-20 w-full">
+      {/* Navigation - Absolutely positioned */}
+      <div className="absolute top-0 left-0 right-0 z-20">
         <Navigation />
       </div>
 
       {/* Enhanced Hero Content with Adventure Theme - Full width container */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen w-full px-4 sm:px-6 lg:px-8 pt-20">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen w-full px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 animate-fadeInUp max-w-6xl w-full">
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white mb-8 leading-[0.9] tracking-tight">
             <span className="block drop-shadow-2xl font-black">Find your perfect</span>
