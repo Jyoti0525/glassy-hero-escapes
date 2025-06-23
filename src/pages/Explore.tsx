@@ -111,29 +111,29 @@ const Explore = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50/30 via-white to-purple-50/20">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
       <div className="pt-32 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-7xl">
           {/* Search Summary */}
-          <div className="mb-8">
+          <div className="mb-8 animate-fadeInUp">
             <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">
               {location ? `Stays in ${location}` : 'Explore Stays'}
             </h1>
             <div className="flex flex-wrap gap-4 text-gray-600">
               {location && (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm">
                   <MapPin className="w-4 h-4" />
                   <span>{location}</span>
                 </div>
               )}
               {checkIn && checkOut && (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm">
                   <Calendar className="w-4 h-4" />
                   <span>{checkIn} - {checkOut}</span>
                 </div>
               )}
               {guests && (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm">
                   <Users className="w-4 h-4" />
                   <span>{guests} guests</span>
                 </div>
@@ -142,13 +142,13 @@ const Explore = () => {
           </div>
 
           {/* Filter Bar */}
-          <div className="mb-8 bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-white/20">
+          <div className="mb-8 bg-white/80 backdrop-blur-xl rounded-2xl p-4 shadow-lg border border-gray-100 animate-fadeInUp">
             <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
               <div className="flex items-center gap-4 flex-1">
                 <Button
                   variant="outline"
                   onClick={() => setShowFilters(!showFilters)}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 rounded-full border-gray-200 hover:bg-gray-50 transition-all duration-300"
                 >
                   <SlidersHorizontal className="w-4 h-4" />
                   Filters
@@ -165,10 +165,10 @@ const Explore = () => {
                     }
                     setSearchParams(newParams);
                   }}
-                  className="max-w-xs"
+                  className="max-w-xs rounded-full border-gray-200 bg-gray-50/50 focus:bg-white focus:border-blue-300 transition-all duration-300"
                 />
               </div>
-              <div className="text-sm text-gray-600">
+              <div className="text-sm text-gray-600 bg-gray-100/80 px-3 py-1 rounded-full">
                 {filteredListings.length} properties found
               </div>
             </div>
@@ -176,7 +176,7 @@ const Explore = () => {
 
           {/* Category Tabs */}
           <Tabs value={activeFilter} onValueChange={setActiveFilter} className="w-full mb-8">
-            <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5 bg-white/80 backdrop-blur-sm shadow-lg rounded-2xl p-2 h-auto">
+            <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5 bg-white/80 backdrop-blur-sm shadow-lg rounded-2xl p-2 h-auto border border-gray-100">
               {filterTabs.map((tab) => (
                 <TabsTrigger
                   key={tab.id}
@@ -195,7 +195,7 @@ const Explore = () => {
               <Card
                 key={listing.id}
                 onClick={() => handleCardClick(listing.id)}
-                className="group relative overflow-hidden bg-white border-0 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 cursor-pointer rounded-3xl"
+                className="group relative overflow-hidden bg-white/90 backdrop-blur-sm border-0 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 cursor-pointer rounded-3xl animate-fadeInUp"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Image Container */}
@@ -205,7 +205,7 @@ const Explore = () => {
                     alt={listing.name}
                     className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   
                   {/* Action Icons */}
                   <div className="absolute top-3 right-3 flex gap-2">
@@ -252,7 +252,7 @@ const Explore = () => {
                           </span>
                         ))}
                       </div>
-                      <span className="text-sm text-gray-600">
+                      <span className="text-sm text-gray-600 font-medium">
                         {listing.rating} ({listing.reviews})
                       </span>
                     </div>
@@ -274,14 +274,17 @@ const Explore = () => {
 
           {/* No Results */}
           {filteredListings.length === 0 && (
-            <div className="text-center py-16">
+            <div className="text-center py-16 animate-fadeInUp">
               <div className="text-6xl mb-4">🏠</div>
               <h3 className="text-2xl font-bold text-gray-900 mb-2">No properties found</h3>
               <p className="text-gray-600 mb-6">Try adjusting your search criteria or filters</p>
-              <Button onClick={() => {
-                setSearchParams(new URLSearchParams());
-                setActiveFilter('all');
-              }}>
+              <Button 
+                onClick={() => {
+                  setSearchParams(new URLSearchParams());
+                  setActiveFilter('all');
+                }}
+                className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white rounded-full px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-300"
+              >
                 Clear all filters
               </Button>
             </div>
