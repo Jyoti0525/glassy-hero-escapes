@@ -2,6 +2,7 @@
 import React from 'react';
 import Navigation from './Navigation';
 import SearchBar from './SearchBar';
+import { HeroImageTrail } from './HeroImageTrail';
 
 const HeroSection = () => {
   return (
@@ -20,28 +21,31 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 via-transparent to-gray-900/20"></div>
       </div>
 
+      {/* Image Trail Effect */}
+      <HeroImageTrail />
+
       {/* Navigation - Absolutely positioned */}
       <div className="absolute top-0 left-0 right-0 z-20">
         <Navigation />
       </div>
 
-      {/* Enhanced Hero Content with Adventure Theme - Full width container with proper top padding */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen w-full px-4 sm:px-6 lg:px-8 pt-32">
+      {/* Enhanced Hero Content with Adventure Theme - Proper spacing and z-index */}
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen w-full px-4 sm:px-6 lg:px-8 pt-24 md:pt-32">
         <div className="text-center mb-16 animate-fadeInUp max-w-6xl w-full">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white mb-8 leading-[0.9] tracking-tight">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white mb-8 leading-[0.9] tracking-tight select-none">
             <span className="block drop-shadow-2xl font-black">Find your perfect</span>
             <span className="block drop-shadow-2xl font-black">vacation</span>
             <span className="block bg-gradient-to-r from-orange-400 via-red-500 to-orange-400 bg-clip-text text-transparent drop-shadow-2xl font-black">
               rental
             </span>
           </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed font-medium drop-shadow-lg mb-16">
+          <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed font-medium drop-shadow-lg mb-16 select-none">
             Discover unique places to stay and create unforgettable memories in beautiful destinations around the world
           </p>
         </div>
 
         {/* Enhanced Search Bar - Full width */}
-        <div className="w-full max-w-6xl">
+        <div className="w-full max-w-6xl relative z-20">
           <SearchBar />
         </div>
 
@@ -54,13 +58,13 @@ const HeroSection = () => {
           ].map((stat, index) => (
             <div key={index} className="group cursor-pointer">
               <div className="bg-gray-900/40 backdrop-blur-xl rounded-3xl p-8 border border-gray-700/30 hover:bg-gray-800/50 hover:border-orange-500/40 transition-all duration-500 hover:scale-110 hover:-translate-y-3 shadow-2xl hover:shadow-orange-500/20">
-                <div className="text-4xl md:text-5xl font-black text-white mb-4 group-hover:scale-110 transition-transform duration-300 bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
+                <div className="text-4xl md:text-5xl font-black text-white mb-4 group-hover:scale-110 transition-transform duration-300 bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent select-none">
                   {stat.number}
                 </div>
-                <div className="text-gray-300 text-lg md:text-xl font-bold uppercase tracking-wider mb-2">
+                <div className="text-gray-300 text-lg md:text-xl font-bold uppercase tracking-wider mb-2 select-none">
                   {stat.label}
                 </div>
-                <div className="text-gray-400 text-sm font-medium">
+                <div className="text-gray-400 text-sm font-medium select-none">
                   {stat.subtext}
                 </div>
               </div>
