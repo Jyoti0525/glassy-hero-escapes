@@ -6,19 +6,11 @@ import { HeroImageTrail } from './HeroImageTrail';
 
 const HeroSection = () => {
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-gray-900">
-      {/* Enhanced Background with Adventure/Nature Theme - Full Coverage */}
-      <div 
-        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2000&auto=format&fit=crop')`,
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-black/85 via-gray-900/70 to-black/90"></div>
-        <div className="absolute inset-0 backdrop-blur-[0.5px]"></div>
-        
-        {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 via-transparent to-gray-900/20"></div>
+    <div className="relative min-h-screen w-full overflow-hidden bg-neutral-50">
+      {/* Minimal Background with subtle gradient */}
+      <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-neutral-100 via-white to-neutral-200">
+        {/* Subtle overlay for depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-neutral-100/30 via-transparent to-neutral-50/20"></div>
       </div>
 
       {/* Image Trail Effect */}
@@ -29,54 +21,43 @@ const HeroSection = () => {
         <Navigation />
       </div>
 
-      {/* Enhanced Hero Content with Adventure Theme - Proper spacing and z-index */}
+      {/* Minimal Hero Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen w-full px-4 sm:px-6 lg:px-8 pt-24 md:pt-32">
-        <div className="text-center mb-16 animate-fadeInUp max-w-6xl w-full">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white mb-8 leading-[0.9] tracking-tight select-none">
-            <span className="block drop-shadow-2xl font-black">Find your perfect</span>
-            <span className="block drop-shadow-2xl font-black">vacation</span>
-            <span className="block bg-gradient-to-r from-orange-400 via-red-500 to-orange-400 bg-clip-text text-transparent drop-shadow-2xl font-black">
-              rental
-            </span>
+        <div className="text-center mb-16 animate-fadeInUp max-w-4xl w-full">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium text-neutral-900 mb-6 leading-tight tracking-tight select-none">
+            <span className="block">Find your perfect</span>
+            <span className="block">vacation rental</span>
           </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed font-medium drop-shadow-lg mb-16 select-none">
-            Discover unique places to stay and create unforgettable memories in beautiful destinations around the world
+          <p className="text-base sm:text-lg md:text-xl text-neutral-600 max-w-2xl mx-auto leading-relaxed font-normal mb-16 select-none">
+            Discover unique places to stay and create unforgettable memories
           </p>
         </div>
 
-        {/* Enhanced Search Bar - Full width */}
-        <div className="w-full max-w-6xl relative z-20">
+        {/* Search Bar */}
+        <div className="w-full max-w-4xl relative z-20">
           <SearchBar />
         </div>
 
-        {/* Enhanced Stats with Adventure Theme */}
-        <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-20 text-center animate-fadeInUp w-full max-w-4xl">
+        {/* Minimal Stats */}
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 text-center animate-fadeInUp w-full max-w-3xl">
           {[
-            { number: '10M+', label: 'Happy Guests', subtext: 'worldwide' },
-            { number: '2M+', label: 'Unique Stays', subtext: 'available' },
-            { number: '200+', label: 'Countries', subtext: 'to explore' }
+            { number: '10M+', label: 'Happy Guests' },
+            { number: '2M+', label: 'Unique Stays' },
+            { number: '200+', label: 'Countries' }
           ].map((stat, index) => (
             <div key={index} className="group cursor-pointer">
-              <div className="bg-gray-900/40 backdrop-blur-xl rounded-3xl p-8 border border-gray-700/30 hover:bg-gray-800/50 hover:border-orange-500/40 transition-all duration-500 hover:scale-110 hover:-translate-y-3 shadow-2xl hover:shadow-orange-500/20">
-                <div className="text-4xl md:text-5xl font-black text-white mb-4 group-hover:scale-110 transition-transform duration-300 bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent select-none">
+              <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-neutral-200/50 hover:bg-white/80 hover:border-neutral-300/50 transition-all duration-300 hover:scale-105 hover:-translate-y-1 shadow-sm hover:shadow-lg">
+                <div className="text-2xl md:text-3xl font-semibold text-neutral-900 mb-2 group-hover:scale-105 transition-transform duration-200 select-none">
                   {stat.number}
                 </div>
-                <div className="text-gray-300 text-lg md:text-xl font-bold uppercase tracking-wider mb-2 select-none">
+                <div className="text-neutral-600 text-sm md:text-base font-medium select-none">
                   {stat.label}
-                </div>
-                <div className="text-gray-400 text-sm font-medium select-none">
-                  {stat.subtext}
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
-
-      {/* Floating Elements with Dark Theme */}
-      <div className="absolute top-1/4 left-10 w-32 h-32 bg-orange-500/10 backdrop-blur-sm rounded-full animate-float border border-orange-400/20"></div>
-      <div className="absolute top-1/3 right-16 w-40 h-40 bg-red-500/10 backdrop-blur-sm rounded-full animate-float border border-red-400/20" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute bottom-1/4 left-1/4 w-36 h-36 bg-gray-600/10 backdrop-blur-sm rounded-full animate-float border border-gray-500/20" style={{ animationDelay: '2s' }}></div>
     </div>
   );
 };
