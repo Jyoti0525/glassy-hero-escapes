@@ -5,7 +5,7 @@ import SearchBar from './SearchBar';
 
 const HeroSection = () => {
   return (
-    <div className="relative min-h-screen w-full overflow-hidden">
+    <div className="relative min-h-screen w-full overflow-hidden bg-gray-900">
       {/* Enhanced Background with Adventure/Nature Theme - Full Coverage */}
       <div 
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
@@ -25,8 +25,8 @@ const HeroSection = () => {
         <Navigation />
       </div>
 
-      {/* Enhanced Hero Content with Adventure Theme - Full width container */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen w-full px-4 sm:px-6 lg:px-8">
+      {/* Enhanced Hero Content with Adventure Theme - Full width container with proper top padding */}
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen w-full px-4 sm:px-6 lg:px-8 pt-32">
         <div className="text-center mb-16 animate-fadeInUp max-w-6xl w-full">
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white mb-8 leading-[0.9] tracking-tight">
             <span className="block drop-shadow-2xl font-black">Find your perfect</span>

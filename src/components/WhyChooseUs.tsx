@@ -54,8 +54,8 @@ const WhyChooseUs = () => {
               key={index}
               className="group p-8 bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 hover:border-orange-500/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20"
               style={{
-                animation: `float 6s ease-in-out infinite`,
-                animationDelay: `${index * 0.5}s`
+                animation: `slideHorizontal 8s ease-in-out infinite`,
+                animationDelay: `${index * 0.3}s`
               }}
             >
               <div className="mb-6">

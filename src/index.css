@@ -107,6 +107,21 @@
   }
 }
 
+@keyframes slideHorizontal {
+  0%, 100% {
+    transform: translateX(0px);
+  }
+  25% {
+    transform: translateX(15px);
+  }
+  50% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+}
+
 @keyframes slide {
   0% {
     transform: translateX(-100%);

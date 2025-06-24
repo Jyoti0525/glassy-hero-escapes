@@ -1,294 +1,245 @@
 
-import React, { useState, useEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Card, CardContent } from '@/components/ui/card';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import React, { useState } from 'react';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Bookmark, Share, MapPin, Calendar, Users, SlidersHorizontal } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { MapPin, Star, Wifi, Car, Coffee, Users, Search, Filter } from 'lucide-react';
 
 const Explore = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [showFilters, setShowFilters] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [priceRange, setPriceRange] = useState('');
+  const [propertyType, setPropertyType] = useState('');
 
-  // Get search parameters
-  const location = searchParams.get('location') || '';
-  const checkIn = searchParams.get('checkIn') || '';
-  const checkOut = searchParams.get('checkOut') || '';
-  const guests = searchParams.get('guests') || '';
-
-  const filterTabs = [
-    { id: 'all', label: 'All Adventures' },
-    { id: 'beach-homes', label: 'Beach Escapes' },
-    { id: 'family-stays', label: 'Family Adventures' },
-    { id: 'cabins', label: 'Mountain Cabins' },
-    { id: 'pet-friendly', label: 'Pet Adventures' }
-  ];
-
-  // Mock listings data (in a real app, this would come from an API)
-  const allListings = [
+  const properties = [
     {
       id: 1,
-      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=800&auto=format&fit=crop',
-      name: 'Oceanfront Adventure Villa',
-      rating: 4.9,
-      location: 'Malibu, CA',
+      title: 'Luxury Mountain Retreat',
+      location: 'Aspen, Colorado',
       price: 450,
-      reviews: 127,
-      category: 'beach-homes',
-      guests: 6
+      rating: 4.9,
+      reviews: 128,
+      image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=500&h=300&fit=crop',
+      amenities: ['Wifi', 'Parking', 'Coffee', 'Hot Tub'],
+      guests: 8,
+      bedrooms: 4,
+      bathrooms: 3
     },
     {
       id: 2,
-      image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=800&auto=format&fit=crop',
-      name: 'Coastal Adventure Lodge',
+      title: 'Beachfront Paradise Villa',
+      location: 'Malibu, California',
+      price: 650,
       rating: 4.8,
-      location: 'Santa Monica, CA',
-      price: 320,
       reviews: 89,
-      category: 'beach-homes',
-      guests: 4
+      image: 'https://images.unsplash.com/photo-1520637836862-4d197d17c223?w=500&h=300&fit=crop',
+      amenities: ['Ocean View', 'Wifi', 'Parking', 'Pool'],
+      guests: 10,
+      bedrooms: 5,
+      bathrooms: 4
     },
     {
       id: 3,
-      image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=800&auto=format&fit=crop',
-      name: 'Family Adventure Resort',
-      rating: 4.8,
-      location: 'Orlando, FL',
-      price: 295,
-      reviews: 234,
-      category: 'family-stays',
-      guests: 8
+      title: 'Cozy Forest Cabin',
+      location: 'Lake Tahoe, Nevada',
+      price: 280,
+      rating: 4.7,
+      reviews: 156,
+      image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500&h=300&fit=crop',
+      amenities: ['Fireplace', 'Wifi', 'Kitchen', 'Hiking'],
+      guests: 6,
+      bedrooms: 3,
+      bathrooms: 2
     },
     {
       id: 4,
-      image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=800&auto=format&fit=crop',
-      name: 'Mountain Adventure Cabin',
-      rating: 4.8,
-      location: 'Aspen, CO',
-      price: 280,
-      reviews: 112,
-      category: 'cabins',
-      guests: 6
+      title: 'Urban Loft Experience',
+      location: 'New York, NY',
+      price: 320,
+      rating: 4.6,
+      reviews: 203,
+      image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=500&h=300&fit=crop',
+      amenities: ['City View', 'Wifi', 'Gym', 'Rooftop'],
+      guests: 4,
+      bedrooms: 2,
+      bathrooms: 1
     },
     {
       id: 5,
-      image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=800&auto=format&fit=crop',
-      name: 'Pet Adventure Paradise',
+      title: 'Desert Oasis Retreat',
+      location: 'Sedona, Arizona',
+      price: 380,
+      rating: 4.9,
+      reviews: 94,
+      image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=500&h=300&fit=crop',
+      amenities: ['Pool', 'Spa', 'Wifi', 'Hiking'],
+      guests: 8,
+      bedrooms: 4,
+      bathrooms: 3
+    },
+    {
+      id: 6,
+      title: 'Lakeside Modern Home',
+      location: 'Austin, Texas',
+      price: 420,
       rating: 4.8,
-      location: 'Portland, OR',
-      price: 260,
-      reviews: 201,
-      category: 'pet-friendly',
-      guests: 4
+      reviews: 167,
+      image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500&h=300&fit=crop',
+      amenities: ['Lake Access', 'Wifi', 'Boat', 'BBQ'],
+      guests: 10,
+      bedrooms: 5,
+      bathrooms: 3
     }
   ];
 
-  // Filter listings based on active filter and search params
-  const filteredListings = allListings.filter(listing => {
-    const matchesCategory = activeFilter === 'all' || listing.category === activeFilter;
-    const matchesLocation = !location || listing.location.toLowerCase().includes(location.toLowerCase());
-    const matchesGuests = !guests || listing.guests >= parseInt(guests);
-    return matchesCategory && matchesLocation && matchesGuests;
+  const getAmenityIcon = (amenity: string) => {
+    switch (amenity) {
+      case 'Wifi': return <Wifi className="w-4 h-4" />;
+      case 'Parking': return <Car className="w-4 h-4" />;
+      case 'Coffee': return <Coffee className="w-4 h-4" />;
+      default: return <Coffee className="w-4 h-4" />;
+    }
+  };
+
+  const filteredProperties = properties.filter(property => {
+    const matchesSearch = property.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         property.location.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesPrice = !priceRange || 
+                        (priceRange === 'low' && property.price < 300) ||
+                        (priceRange === 'medium' && property.price >= 300 && property.price < 500) ||
+                        (priceRange === 'high' && property.price >= 500);
+    return matchesSearch && matchesPrice;
   });
-
-  const handleCardClick = (listingId: number) => {
-    navigate(`/property/${listingId}`);
-  };
-
-  const handleBookmark = (e: React.MouseEvent, listingId: number) => {
-    e.stopPropagation();
-    console.log('Bookmarked listing:', listingId);
-    // Add bookmark functionality here
-  };
-
-  const handleShare = (e: React.MouseEvent, listingId: number) => {
-    e.stopPropagation();
-    console.log('Shared listing:', listingId);
-    // Add share functionality here
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
-      <div className="pt-32 px-4 sm:px-6 lg:px-8">
+      {/* Header Section */}
+      <div className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-7xl">
-          {/* Search Summary */}
-          <div className="mb-8 animate-fadeInUp">
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-orange-400 via-red-500 to-orange-400 bg-clip-text text-transparent mb-4">
-              {location ? `Adventures in ${location}` : 'Explore Adventures'}
+          <div className="text-center mb-12 animate-fadeInUp">
+            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-orange-400 via-red-500 to-orange-400 bg-clip-text text-transparent mb-6">
+              Explore Amazing Stays
             </h1>
-            <div className="flex flex-wrap gap-4 text-gray-300">
-              {location && (
-                <div className="flex items-center gap-2 bg-gray-800/80 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm border border-gray-700">
-                  <MapPin className="w-4 h-4 text-orange-400" />
-                  <span>{location}</span>
-                </div>
-              )}
-              {checkIn && checkOut && (
-                <div className="flex items-center gap-2 bg-gray-800/80 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm border border-gray-700">
-                  <Calendar className="w-4 h-4 text-orange-400" />
-                  <span>{checkIn} - {checkOut}</span>
-                </div>
-              )}
-              {guests && (
-                <div className="flex items-center gap-2 bg-gray-800/80 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm border border-gray-700">
-                  <Users className="w-4 h-4 text-orange-400" />
-                  <span>{guests} adventurers</span>
-                </div>
-              )}
-            </div>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Discover unique vacation rentals that match your adventure spirit and create unforgettable memories
+            </p>
           </div>
 
-          {/* Filter Bar */}
-          <div className="mb-8 bg-gray-800/80 backdrop-blur-xl rounded-2xl p-4 shadow-lg border border-gray-700/50 animate-fadeInUp">
-            <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
-              <div className="flex items-center gap-4 flex-1">
-                <Button
-                  variant="outline"
-                  onClick={() => setShowFilters(!showFilters)}
-                  className="flex items-center gap-2 rounded-full border-gray-600 bg-gray-700/50 text-gray-300 hover:bg-gray-600 hover:text-white transition-all duration-300"
-                >
-                  <SlidersHorizontal className="w-4 h-4" />
-                  Filters
-                </Button>
+          {/* Search and Filter Section */}
+          <div className="bg-gray-800/50 backdrop-blur-xl rounded-3xl p-8 border border-gray-700/50 shadow-2xl mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <Input
                   placeholder="Search destinations..."
-                  value={location}
-                  onChange={(e) => {
-                    const newParams = new URLSearchParams(searchParams);
-                    if (e.target.value) {
-                      newParams.set('location', e.target.value);
-                    } else {
-                      newParams.delete('location');
-                    }
-                    setSearchParams(newParams);
-                  }}
-                  className="max-w-xs rounded-full border-gray-600 bg-gray-700/50 text-white placeholder-gray-400 focus:bg-gray-700 focus:border-orange-500 transition-all duration-300"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-12 bg-gray-700/50 border-gray-600 text-white placeholder-gray-400 rounded-2xl h-14 focus:border-orange-500 focus:ring-orange-500"
                 />
               </div>
-              <div className="text-sm text-gray-300 bg-gray-700/80 px-3 py-1 rounded-full">
-                {filteredListings.length} adventures found
-              </div>
+              
+              <Select value={priceRange} onValueChange={setPriceRange}>
+                <SelectTrigger className="bg-gray-700/50 border-gray-600 text-white rounded-2xl h-14 focus:border-orange-500 focus:ring-orange-500">
+                  <SelectValue placeholder="Price Range" />
+                </SelectTrigger>
+                <SelectContent className="bg-gray-800 border-gray-700">
+                  <SelectItem value="low" className="text-white hover:bg-gray-700">Under $300</SelectItem>
+                  <SelectItem value="medium" className="text-white hover:bg-gray-700">$300 - $500</SelectItem>
+                  <SelectItem value="high" className="text-white hover:bg-gray-700">Over $500</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Select value={propertyType} onValueChange={setPropertyType}>
+                <SelectTrigger className="bg-gray-700/50 border-gray-600 text-white rounded-2xl h-14 focus:border-orange-500 focus:ring-orange-500">
+                  <SelectValue placeholder="Property Type" />
+                </SelectTrigger>
+                <SelectContent className="bg-gray-800 border-gray-700">
+                  <SelectItem value="cabin" className="text-white hover:bg-gray-700">Cabin</SelectItem>
+                  <SelectItem value="villa" className="text-white hover:bg-gray-700">Villa</SelectItem>
+                  <SelectItem value="apartment" className="text-white hover:bg-gray-700">Apartment</SelectItem>
+                  <SelectItem value="house" className="text-white hover:bg-gray-700">House</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Button className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white rounded-2xl h-14 font-bold text-lg shadow-xl transform hover:scale-105 transition-all duration-300">
+                <Filter className="w-5 h-5 mr-2" />
+                Apply Filters
+              </Button>
             </div>
           </div>
+        </div>
+      </div>
 
-          {/* Category Tabs */}
-          <Tabs value={activeFilter} onValueChange={setActiveFilter} className="w-full mb-8">
-            <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5 bg-gray-800/80 backdrop-blur-sm shadow-lg rounded-2xl p-2 h-auto border border-gray-700/50">
-              {filterTabs.map((tab) => (
-                <TabsTrigger
-                  key={tab.id}
-                  value={tab.id}
-                  className="py-3 px-4 text-sm font-medium rounded-xl transition-all duration-300 text-gray-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-red-500 data-[state=active]:text-white data-[state=active]:shadow-lg hover:bg-gray-700"
-                >
-                  {tab.label}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </Tabs>
-
-          {/* Results Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
-            {filteredListings.map((listing, index) => (
-              <Card
-                key={listing.id}
-                onClick={() => handleCardClick(listing.id)}
-                className="group relative overflow-hidden bg-gray-800/90 backdrop-blur-sm border border-gray-700/50 shadow-lg hover:shadow-2xl hover:shadow-orange-500/20 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 cursor-pointer rounded-3xl animate-fadeInUp"
+      {/* Properties Grid */}
+      <div className="px-4 sm:px-6 lg:px-8 pb-20">
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProperties.map((property, index) => (
+              <Card 
+                key={property.id} 
+                className="bg-gray-800/90 backdrop-blur-sm border border-gray-700/50 shadow-lg rounded-3xl hover:shadow-2xl hover:shadow-orange-500/20 transition-all duration-500 transform hover:scale-105 overflow-hidden animate-fadeInUp"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                {/* Image Container */}
-                <div className="relative overflow-hidden rounded-t-3xl">
-                  <img
-                    src={listing.image}
-                    alt={listing.name}
-                    className="w-full h-48 object-cover transition-transform duration-700 group-hover:scale-110"
+                <div className="relative">
+                  <img 
+                    src={property.image} 
+                    alt={property.title}
+                    className="w-full h-64 object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
-                  {/* Action Icons */}
-                  <div className="absolute top-3 right-3 flex gap-2">
-                    <button 
-                      onClick={(e) => handleBookmark(e, listing.id)}
-                      className="p-2 bg-gray-800/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-gray-700 hover:scale-110 transition-all duration-300 border border-gray-600"
-                    >
-                      <Bookmark className="w-4 h-4 text-gray-300" />
-                    </button>
-                    <button 
-                      onClick={(e) => handleShare(e, listing.id)}
-                      className="p-2 bg-gray-800/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-gray-700 hover:scale-110 transition-all duration-300 border border-gray-600"
-                    >
-                      <Share className="w-4 h-4 text-gray-300" />
-                    </button>
+                  <div className="absolute top-4 right-4">
+                    <Badge className="bg-gray-900/80 text-white border-gray-700">
+                      <Star className="w-4 h-4 mr-1 fill-yellow-400 text-yellow-400" />
+                      {property.rating}
+                    </Badge>
                   </div>
-
-                  {/* Price Badge */}
-                  <div className="absolute bottom-3 left-3 bg-orange-500/90 backdrop-blur-sm rounded-full px-3 py-1 shadow-lg">
-                    <span className="text-sm font-bold text-white">
-                      ${listing.price}/night
-                    </span>
+                  <div className="absolute bottom-4 left-4">
+                    <Badge className="bg-orange-500/90 text-white font-bold text-lg px-3 py-1">
+                      ${property.price}/night
+                    </Badge>
                   </div>
                 </div>
 
-                {/* Card Content */}
-                <CardContent className="p-5">
-                  <div className="space-y-2">
-                    <h3 className="text-lg font-bold text-white group-hover:text-orange-400 transition-colors duration-300 line-clamp-1">
-                      {listing.name}
-                    </h3>
-                    
-                    {/* Rating */}
-                    <div className="flex items-center gap-2">
-                      <div className="flex text-orange-400">
-                        {[...Array(5)].map((_, i) => (
-                          <span
-                            key={i}
-                            className={`text-sm ${
-                              i < Math.floor(listing.rating) ? 'opacity-100' : 'opacity-30'
-                            }`}
-                          >
-                            ★
-                          </span>
-                        ))}
-                      </div>
-                      <span className="text-sm text-gray-300 font-medium">
-                        {listing.rating} ({listing.reviews})
-                      </span>
+                <CardHeader className="pb-4">
+                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">
+                    {property.title}
+                  </h3>
+                  <div className="flex items-center text-gray-300 mb-2">
+                    <MapPin className="w-5 h-5 mr-2 text-orange-400" />
+                    <span>{property.location}</span>
+                  </div>
+                  <div className="flex items-center text-gray-400 text-sm">
+                    <Users className="w-4 h-4 mr-1" />
+                    <span>{property.guests} guests</span>
+                    <span className="mx-2">•</span>
+                    <span>{property.bedrooms} bed</span>
+                    <span className="mx-2">•</span>
+                    <span>{property.bathrooms} bath</span>
+                  </div>
+                </CardHeader>
+
+                <CardContent className="pt-0">
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {property.amenities.slice(0, 4).map((amenity, idx) => (
+                      <Badge key={idx} variant="secondary" className="bg-gray-700/50 text-gray-300 border-gray-600">
+                        {getAmenityIcon(amenity)}
+                        <span className="ml-1">{amenity}</span>
+                      </Badge>
+                    ))}
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="text-gray-400 text-sm">
+                      {property.reviews} reviews
                     </div>
-
-                    {/* Location */}
-                    <p className="text-gray-400 text-sm font-medium">
-                      {listing.location}
-                    </p>
-
-                    {/* Guests */}
-                    <p className="text-gray-500 text-xs">
-                      Up to {listing.guests} adventurers
-                    </p>
+                    <Button className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white rounded-2xl font-bold shadow-lg transform hover:scale-105 transition-all duration-300">
+                      View Details
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
-
-          {/* No Results */}
-          {filteredListings.length === 0 && (
-            <div className="text-center py-16 animate-fadeInUp">
-              <div className="text-6xl mb-4">🏠</div>
-              <h3 className="text-2xl font-bold text-white mb-2">No adventures found</h3>
-              <p className="text-gray-400 mb-6">Try adjusting your search criteria or filters</p>
-              <Button 
-                onClick={() => {
-                  setSearchParams(new URLSearchParams());
-                  setActiveFilter('all');
-                }}
-                className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white rounded-full px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                Clear all filters
-              </Button>
-            </div>
-          )}
         </div>
       </div>
     </div>
