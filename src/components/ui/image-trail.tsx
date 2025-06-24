@@ -3,7 +3,7 @@ import { Children, useCallback, useEffect, useMemo, useRef } from "react"
 import {
   AnimationSequence,
   motion,
-  Target,
+  TargetAndTransition,
   Transition,
   useAnimate,
   useAnimationFrame,
@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from "uuid"
 
 import { useMouseVector } from "@/components/hooks/use-mouse-vector"
 
-type TrailSegment = [Target, Transition]
+type TrailSegment = [TargetAndTransition, Transition]
 
 type TrailAnimationSequence = TrailSegment[]
 
