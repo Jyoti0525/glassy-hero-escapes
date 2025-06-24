@@ -6,11 +6,17 @@ import { HeroImageTrail } from './HeroImageTrail';
 
 const HeroSection = () => {
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-white">
-      {/* Very light minimal background */}
-      <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-gray-50 via-white to-gray-50">
-        {/* Subtle texture overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-50/20 via-transparent to-white/10"></div>
+    <div className="relative min-h-screen w-full overflow-hidden">
+      {/* Beautiful background image */}
+      <div className="absolute inset-0 w-full h-full">
+        <img 
+          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=2000&q=80"
+          alt="Mountain landscape"
+          className="w-full h-full object-cover"
+        />
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10"></div>
       </div>
 
       {/* Image Trail Effect */}
@@ -21,14 +27,15 @@ const HeroSection = () => {
         <Navigation />
       </div>
 
-      {/* Minimal Hero Content */}
+      {/* Hero Content with enhanced typography */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen w-full px-4 sm:px-6 lg:px-8 pt-24 md:pt-32">
-        <div className="text-center mb-16 animate-fadeInUp max-w-4xl w-full">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-light text-gray-800 mb-4 leading-relaxed tracking-wide select-none">
-            <span className="block">Find your perfect</span>
-            <span className="block">vacation rental</span>
+        <div className="text-center mb-16 animate-fadeInUp max-w-5xl w-full">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extralight text-white mb-6 leading-[0.9] tracking-wider select-none drop-shadow-lg">
+            <span className="block font-serif italic">Find your</span>
+            <span className="block font-light">perfect</span>
+            <span className="block font-thin text-white/90">vacation rental</span>
           </h1>
-          <p className="text-sm sm:text-base md:text-lg text-gray-500 max-w-xl mx-auto leading-relaxed font-light mb-16 select-none">
+          <p className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-2xl mx-auto leading-relaxed font-light mb-16 select-none drop-shadow-md tracking-wide">
             Discover unique places to stay and create unforgettable memories
           </p>
         </div>
@@ -38,7 +45,7 @@ const HeroSection = () => {
           <SearchBar />
         </div>
 
-        {/* Minimal Stats */}
+        {/* Enhanced Stats */}
         <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 text-center animate-fadeInUp w-full max-w-3xl">
           {[
             { number: '10M+', label: 'Happy Guests' },
@@ -46,11 +53,11 @@ const HeroSection = () => {
             { number: '200+', label: 'Countries' }
           ].map((stat, index) => (
             <div key={index} className="group cursor-pointer">
-              <div className="bg-white/40 backdrop-blur-sm rounded-xl p-5 border border-gray-100 hover:bg-white/60 hover:border-gray-200 transition-all duration-300 hover:scale-105 hover:-translate-y-1 shadow-sm hover:shadow-md">
-                <div className="text-xl md:text-2xl font-light text-gray-700 mb-2 group-hover:scale-105 transition-transform duration-200 select-none">
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/20 hover:border-white/30 transition-all duration-300 hover:scale-105 hover:-translate-y-1 shadow-lg hover:shadow-xl">
+                <div className="text-3xl md:text-4xl font-light text-white mb-2 group-hover:scale-105 transition-transform duration-200 select-none tracking-wider">
                   {stat.number}
                 </div>
-                <div className="text-gray-500 text-xs md:text-sm font-light select-none">
+                <div className="text-white/80 text-sm md:text-base font-light select-none tracking-wide">
                   {stat.label}
                 </div>
               </div>
